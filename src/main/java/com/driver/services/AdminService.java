@@ -9,5 +9,5 @@ public interface AdminService {
 
     public Admin addServiceProvider(int adminId, String providerName);
 
-    //public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception;
+    public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception;
 }

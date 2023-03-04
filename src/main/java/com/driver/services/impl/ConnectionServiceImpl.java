@@ -45,7 +45,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 
                 for (Country country:countryList){
 
-                    if(countryName.equalsIgnoreCase(country.getCountryName().toString()) && min>serviceProvider.getId()){
+                    if(countryName.equalsIgnoreCase(country.getCountryName().toString()) && min > serviceProvider.getId()){
                         min=serviceProvider.getId();
                         serviceProvider1=serviceProvider;
                         country1=country;
@@ -102,7 +102,8 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         if(receiver.getMaskedIp()!=null){
             String receiverMaskedIp = receiver.getMaskedIp();
-            String code = receiverMaskedIp.substring(0,3);
+
+            String code= receiverMaskedIp.substring(0,3);
 
             if(code.equals(sender.getOriginalCountry().getCode()))
                 return sender;
@@ -127,21 +128,18 @@ public class ConnectionServiceImpl implements ConnectionService {
                 try{
                     User updatedSender = connect(senderId,countryName);
                     return updatedSender;
-
                 }catch (Exception e){
                     throw new Exception("Cannot establish communication");
                 }
             }
         }else{
-            if(receiver.getOriginalCountry().equals(receiver.getOriginalCountry())){
+            if(receiver.getOriginalCountry().equals(sender.getOriginalCountry())){
                 return sender;
-
             }else{
                 String countryName = receiver.getOriginalCountry().getCountryName().toString();
                 try{
                     User updatedSender = connect(senderId,countryName);
                     return updatedSender;
-
                 }catch (Exception e){
                     throw new Exception("Cannot establish communication");
                 }

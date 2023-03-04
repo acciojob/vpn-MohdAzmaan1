@@ -25,9 +25,12 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         if(user.getMaskedIp()!=null)
             throw new Exception("Already connected");
+
         else if (countryName.equalsIgnoreCase(user.getOriginalCountry().getCountryName().toString())) {
             return user;
-        } else{
+
+        }
+        else{
             if(user.getServiceProviderList()==null){
                 throw new Exception("Unable to connect");
             }
@@ -76,7 +79,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User disconnect(int userId) throws Exception {
         User user = userRepository2.findById(userId).get();
-        if(user.getConnected()==false)
+        if(user.getConnected() == false)
             throw new Exception("Already disconnected");
 
         user.setMaskedIp(null);
@@ -91,9 +94,9 @@ public class ConnectionServiceImpl implements ConnectionService {
         User receiver = userRepository2.findById(receiverId).get();
 
         if(receiver.getMaskedIp()!=null){
-            String Ip = receiver.getMaskedIp();
+            String receiverMaskedIp = receiver.getMaskedIp();
 
-            String code= Ip.substring(0,3);
+            String code= receiverMaskedIp.substring(0,3);
 
             if(code.equals(sender.getOriginalCountry().getCode()))
                 return sender;
@@ -102,23 +105,23 @@ public class ConnectionServiceImpl implements ConnectionService {
 
                 if (code.equals(CountryName.CHI.toCode()))
                     countryName = CountryName.CHI.toString();
+
                 if (code.equals(CountryName.JPN.toCode()))
                     countryName = CountryName.JPN.toString();
+
                 if (code.equals(CountryName.IND.toCode()))
                     countryName = CountryName.IND.toString();
+
                 if (code.equals(CountryName.USA.toCode()))
                     countryName = CountryName.USA.toString();
+
                 if (code.equals(CountryName.AUS.toCode()))
                     countryName = CountryName.AUS.toString();
 
-//                User updatedSender = connect(senderId,countryName);
-//                if(!updatedSender.getConnected())
-//                    throw new Exception("Cannot establish communication");
-//                else
-//                    return updatedSender;
                 try{
                     User updatedSender = connect(senderId,countryName);
                     return updatedSender;
+
                 }catch (Exception e){
                     throw new Exception("Cannot establish communication");
                 }
@@ -126,16 +129,13 @@ public class ConnectionServiceImpl implements ConnectionService {
         }else{
             if(receiver.getOriginalCountry().equals(sender.getOriginalCountry())){
                 return sender;
+
             }else{
                 String countryName = receiver.getOriginalCountry().getCountryName().toString();
-//                User updatedSender = connect(senderId,countryName);
-//                if(!updatedSender.getConnected())
-//                    throw new Exception("Cannot establish communication");
-//                else
-//                    return updatedSender;
                 try{
                     User updatedSender = connect(senderId,countryName);
                     return updatedSender;
+
                 }catch (Exception e){
                     throw new Exception("Cannot establish communication");
                 }

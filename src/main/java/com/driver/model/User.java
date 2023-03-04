@@ -31,6 +31,9 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Country originalCountry;
 
+    public User() {
+    }
+
     public int getId() {
         return id;
     }

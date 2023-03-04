@@ -14,8 +14,7 @@ public class ServiceProvider {
 
     private String name;
 
-    public ServiceProvider(int id, String name) {
-        this.id = id;
+    public ServiceProvider(String name) {
         this.name = name;
     }
 
